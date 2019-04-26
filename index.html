@@ -1,12 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <!-- link jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
+
 <body>
-    
+
+    <!-- we will need a h2 with a #display-number ID to show the countdown -->
+
+    <div class="main-container">
+        <h1 class="title">
+            Rock and Roll Trivia!
+        </h1>
+
+        <button id="start-button">
+            LETS PLAY!
+        </button>
+
+        <h2 id="time-remainging">
+            Time Remaining:
+            <span id="time">
+                <!-- This will hold the countdown -->
+            </span>
+        </h2>
+
+        <h2 id="question">
+            <!-- quesiton will go here  -->
+            <!-- The message for if you won or lost the game will go here also -->
+        </h2>
+
+        <div id="questions-answers">
+
+
+            <!-- we will populate this question and answer button when we push start -->
+
+
+        </div>
+        <p class="correct-answer-message">
+            <!-- we will display the correct answer message here if the user guessed correctly -->
+        </p>
+
+        <!-- we could display a gif here for every win or loss if we want -->
+        <img src="" alt="">
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            // define my questions object 
+            var myQuestions = [
+                {
+                    question: "Who is the strongest?",
+                    answers: {
+                        a: "Superman",
+                        b: "The Terminator",
+                        c: "Waluigi, obviously",
+                        d: "lorem"
+                    },
+                    correctAnswer: "c"
+                },
+                {
+                    question: "What is the best site ever created?",
+                    answers: {
+                        a: "SitePoint",
+                        b: "Simple Steps Code",
+                        c: "Waluigi, obviously",
+                        d: "lorem"
+                    },
+                    correctAnswer: "c"
+                },
+                {
+                    question: "Where is Waldo really?",
+                    answers: {
+                        a: "Antarctica",
+                        b: "Exploring the Pacific Ocean",
+                        c: "Waluigi, obviously",
+                        d: "lorem"
+                    },
+                    correctAnswer: "d"
+                }
+            ];
+
+            // define global variables to be incremented and decremented 
+            var questionsAsked = 0;
+            var number = 3;
+            var unanswered = 0;
+            var correctAnswers = 0;
+            var incorrectAnswers = 0;
+            var intervalId;
+            let i = 0;
+            var myAskedQuestions = [];
+            
+
+
+            // create a function that will countdown (run and decrement take care of this)
+
+            function nextQuestion() {
+               
+                    displayQuestionAndAnswers();
+                    run();
+                
+
+                    
+                
+            }
+
+            function run() {
+                clearInterval(intervalId);
+                intervalId = setInterval(decrement, 1000);
+            }
+
+            function decrement() {
+                number--;
+                $("#time").text(number);
+
+                if (number === 0) {
+                    stop();
+                    nextQuestion();
+                    
+                    
+                }
+
+            };
+
+
+
+            // create a function to stop the timer and set it to zero 
+            function stop() {
+                clearInterval(intervalId);
+                number = 3;
+
+            }
+
+
+
+            // create a function to display question and answer buttons to DOM 
+            function displayQuestionAndAnswers() {
+
+                $("#questions-answers").empty();
+                let question = $("<h2>").text(myQuestions[0].question);
+                let answerOne = $("<button>").text(myQuestions[0].answers.a);
+                let answerTwo = $("<button>").text(myQuestions[0].answers.b);
+                let answerThree = $("<button>").text(myQuestions[0].answers.c);
+                let answerFour = $("<button>").text(myQuestions[0].answers.d);
+                $("#questions-answers").append(question, answerOne, answerTwo, answerThree, answerFour)
+                questionsAsked++;
+                let recycledQuestion = myQuestions.shift();
+                myAskedQuestions.push(recycledQuestion);
+
+
+            }
+
+            $("#start-button").on("click", function () {
+                nextQuestion();
+
+            })
+
+            
+
+
+
+
+
+
+            // end of document.ready function //
+
+        })
+
+
+
+
+
+
+    </script>
+
 </body>
+
 </html>

@@ -1,3 +1,32 @@
+var number = 15
+
+var intervalId;
+
+function run () {
+  clearInterval(intervalId);
+  setInterval(decrement, 1000);
+}
+
+function decrement () {
+  number--;
+  $("#display-number").html(`<h2>${number}</h2>`);
+
+  if (number === 0) {
+    // display new question and answers to the screen
+  }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
 // game logic in this file 
 
 // first we need to define an object with questions and answers in it 
@@ -8,7 +37,7 @@
 
 // where do we need to start?
 // a start button sits on the screen , if we press it the game begins
-$("start-button").on("click" function() {
+$("start-button").on("click", function() {
     // the game needs to begin here
 })
 
@@ -72,7 +101,7 @@ displayQuestionAndAnswers();
 // 	incorrectAnswers++
 // 	questionsAsked++
 // 	move to the next question and begin a new 10 sec timer
-else if (**userGuess === correct answer**) {\
+else if (**userGuess === incorrect answer**) {\
 incorrectAnswers++;
 questionsAsked++;
 displayQuestionAndAnswers();
