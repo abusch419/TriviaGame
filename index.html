@@ -70,7 +70,7 @@
                     answers: {
                         a: "Rock and roll guy1",
                         b: "Rock and roll guy2",
-                        c: "WRock and roll guy3",
+                        c: "Rock and roll guy3",
                         d: "Rock and roll guy4"
                     },
                     correctAnswer: "c"
@@ -99,13 +99,13 @@
 
             // define global variables to be incremented and decremented 
             var questionsAsked = 0;
-            var number = 5;
+            var number = 6;
             var unanswered = 0;
             var correctAnswerCount = 0;
             var incorrectAnswerCount = 0;
             var intervalId;
-            let i = 0;
-            var myAskedQuestions = [];
+            var i = 0;
+
 
 
 
@@ -113,30 +113,57 @@
 
 
 
+            $("#start-button").on("click", function () {
+
+                run();
+
+            })
+
+            // TIMETELLER FUNCTIONS
+
             function run() {
+               
+                console.log("Running! I = " + i)
                 clearInterval(intervalId);
                 intervalId = setInterval(decrement, 1000);
+                if (questionsAsked === 3) {
+                    $("#questions-answers").empty();
+                    endGame();
+
+                }
+                else {
+                    displayQuestionAndAnswers(i);
+                }
+
+
             }
 
             function decrement() {
                 number--;
-                $("#time").text(number);
 
-                if (number === 0) {
+
+
+
+                if (number < 0) {
                     stop();
-                    displayQuestionAndAnswers(i);
-
+                    i++;
+                    questionsAsked++;
+                    run();
 
                 }
 
+                $("#time").text(number);
+
             };
-
-
 
             // create a function to stop the timer and set it to zero 
             function stop() {
                 clearInterval(intervalId);
-                number = 5;
+
+                number = 6;
+                unanswered++;
+
+                // run();
 
             }
 
@@ -145,45 +172,42 @@
             // create a function to display question and answer buttons to DOM 
             function displayQuestionAndAnswers(qId) {
 
+
+
                 $("#questions-answers").empty();
-                let question = $("<h2>").text(myQuestions[qId].question);
+                let questionDisplay = $("#start-button").html(`<h2>${myQuestions[qId].question}</h2>`);
                 let answerOne = $(`<button>${myQuestions[qId].answers.a}</button>`).addClass("answer-button").attr("data-name", "a");
                 let answerTwo = $(`<button>${myQuestions[qId].answers.b}</button>`).addClass("answer-button").attr("data-name", "b");
                 let answerThree = $(`<button>${myQuestions[qId].answers.c}</button>`).addClass("answer-button").attr("data-name", "c");
                 let answerFour = $(`<button>${myQuestions[qId].answers.d}</button>`).addClass("answer-button").attr("data-name", "d");
-                $("#questions-answers").append(question, answerOne, answerTwo, answerThree, answerFour)
-                questionsAsked++;
-
-                myQuestions.shift();
-                run();
+                $("#questions-answers").append(questionDisplay, answerOne, answerTwo, answerThree, answerFour)
 
 
 
-            }
-
-            function nextQuestion() {
-                
-                if (questionsAsked === 3) {
-                    endGame();
-                }
-                
                 $(document).on("click", ".answer-button", function () {
+                            
                     if ($(this).attr("data-name") === myQuestions[i].correctAnswer) {
                         i++;
+                        questionsAsked++;
                         correctAnswerCount++;
-                        displayQuestionAndAnswers(i);
+
+
+                        number = 6;
+                        
+                        console.log(i)
+
                         run();
                     }
                     else if ($(this).attr("data-name") !== myQuestions[i].correctAnswer) {
                         i++;
+                        questionsAsked++;
                         incorrectAnswerCount++;
-                        displayQuestionAndAnswers(i);
-                        run();
-                    }
-                    else if (number === 0) {
-                        i++;
-                        unanswered++;
-                        displayQuestionAndAnswers(i);
+
+
+                        number = 6;
+                        
+                        console.log(i)
+
                         run();
                     }
 
@@ -191,18 +215,55 @@
 
             }
 
-            function endGame() {
+
+
+
+
+
+
+            function initializeGame() {
                 $("#questions-answers").empty();
+                $("#correct-answer-message").empty();
+                i = 0;
+                questionsAsked = 0;
+                incorrectAnswerCount = 0;
+                correctAnswerCount = 0;
+                unanswered = 0;
+            }
+
+
+            function endGame() {
+                console.log("endgame");
+
+                clearInterval(intervalId);
+
+
+                number = 5;
+                i = 0;
+
+
+
                 $("#correct-answer-message").html("<h1>YOU LOSE!</h1>")
+                $("#correct-answer-message").append(`<p>Incorrect Answers: ${incorrectAnswerCount}</p>`)
+                $("#correct-answer-message").append(`<p>Correct Answers: ${correctAnswerCount}</p>`)
+                $("#correct-answer-message").append(`<p>Unanswered Questions: ${unanswered}</p>`)
+                $("#correct-answer-message").append("<button>Play Again?</button>").addClass("play-again")
+
+
+                // this is not being heard??????
+                $(".play-again").on("click", function () {
+                    initializeGame();
+                    console.log("playagain");
+                    run();
+
+                })
+
+
 
             }
 
 
-            $("#start-button").on("click", function () {
-                displayQuestionAndAnswers(i);
-                nextQuestion();
-                run();
-            })
+
 
             // end of document.ready function //
 
