@@ -42,7 +42,7 @@
 
 
         </div>
-        <p class="correct-answer-message">
+        <p id="correct-answer-message">
             <!-- we will display the correct answer message here if the user guessed correctly -->
         </p>
 
@@ -66,32 +66,32 @@
             // define my questions object 
             var myQuestions = [
                 {
-                    question: "Who is the strongest?",
+                    question: "Who is the answer?",
                     answers: {
-                        a: "Superman",
-                        b: "The Terminator",
-                        c: "Waluigi, obviously",
-                        d: "lorem"
+                        a: "Rock and roll guy1",
+                        b: "Rock and roll guy2",
+                        c: "WRock and roll guy3",
+                        d: "Rock and roll guy4"
                     },
                     correctAnswer: "c"
                 },
                 {
-                    question: "What is the best site ever created?",
+                    question: "What is the answer?",
                     answers: {
-                        a: "SitePoint",
-                        b: "Simple Steps Code",
-                        c: "Waluigi, obviously",
-                        d: "lorem"
+                        a: "Rock and roll thing1",
+                        b: "Rock and roll thing2",
+                        c: "Rock and roll thing3",
+                        d: "Rock and roll thing4"
                     },
                     correctAnswer: "c"
                 },
                 {
-                    question: "Where is Waldo really?",
+                    question: "Where is the answer?",
                     answers: {
-                        a: "Antarctica",
-                        b: "Exploring the Pacific Ocean",
-                        c: "Waluigi, obviously",
-                        d: "lorem"
+                        a: "Rock and roll place1",
+                        b: "Rock and roll place2",
+                        c: "Rock and roll place3",
+                        d: "Rock and roll place4"
                     },
                     correctAnswer: "d"
                 }
@@ -99,27 +99,19 @@
 
             // define global variables to be incremented and decremented 
             var questionsAsked = 0;
-            var number = 3;
+            var number = 5;
             var unanswered = 0;
-            var correctAnswers = 0;
-            var incorrectAnswers = 0;
+            var correctAnswerCount = 0;
+            var incorrectAnswerCount = 0;
             var intervalId;
             let i = 0;
             var myAskedQuestions = [];
-            
+
 
 
             // create a function that will countdown (run and decrement take care of this)
 
-            function nextQuestion() {
-               
-                    displayQuestionAndAnswers();
-                    run();
-                
 
-                    
-                
-            }
 
             function run() {
                 clearInterval(intervalId);
@@ -132,9 +124,9 @@
 
                 if (number === 0) {
                     stop();
-                    nextQuestion();
-                    
-                    
+                    displayQuestionAndAnswers(i);
+
+
                 }
 
             };
@@ -144,40 +136,73 @@
             // create a function to stop the timer and set it to zero 
             function stop() {
                 clearInterval(intervalId);
-                number = 3;
+                number = 5;
 
             }
 
 
 
             // create a function to display question and answer buttons to DOM 
-            function displayQuestionAndAnswers() {
+            function displayQuestionAndAnswers(qId) {
 
                 $("#questions-answers").empty();
-                let question = $("<h2>").text(myQuestions[0].question);
-                let answerOne = $("<button>").text(myQuestions[0].answers.a);
-                let answerTwo = $("<button>").text(myQuestions[0].answers.b);
-                let answerThree = $("<button>").text(myQuestions[0].answers.c);
-                let answerFour = $("<button>").text(myQuestions[0].answers.d);
+                let question = $("<h2>").text(myQuestions[qId].question);
+                let answerOne = $(`<button>${myQuestions[qId].answers.a}</button>`).addClass("answer-button").attr("data-name", "a");
+                let answerTwo = $(`<button>${myQuestions[qId].answers.b}</button>`).addClass("answer-button").attr("data-name", "b");
+                let answerThree = $(`<button>${myQuestions[qId].answers.c}</button>`).addClass("answer-button").attr("data-name", "c");
+                let answerFour = $(`<button>${myQuestions[qId].answers.d}</button>`).addClass("answer-button").attr("data-name", "d");
                 $("#questions-answers").append(question, answerOne, answerTwo, answerThree, answerFour)
                 questionsAsked++;
-                let recycledQuestion = myQuestions.shift();
-                myAskedQuestions.push(recycledQuestion);
+
+                myQuestions.shift();
+                run();
+
 
 
             }
 
+            function nextQuestion() {
+                
+                if (questionsAsked === 3) {
+                    endGame();
+                }
+                
+                $(document).on("click", ".answer-button", function () {
+                    if ($(this).attr("data-name") === myQuestions[i].correctAnswer) {
+                        i++;
+                        correctAnswerCount++;
+                        displayQuestionAndAnswers(i);
+                        run();
+                    }
+                    else if ($(this).attr("data-name") !== myQuestions[i].correctAnswer) {
+                        i++;
+                        incorrectAnswerCount++;
+                        displayQuestionAndAnswers(i);
+                        run();
+                    }
+                    else if (number === 0) {
+                        i++;
+                        unanswered++;
+                        displayQuestionAndAnswers(i);
+                        run();
+                    }
+
+                })
+
+            }
+
+            function endGame() {
+                $("#questions-answers").empty();
+                $("#correct-answer-message").html("<h1>YOU LOSE!</h1>")
+
+            }
+
+
             $("#start-button").on("click", function () {
+                displayQuestionAndAnswers(i);
                 nextQuestion();
-
+                run();
             })
-
-            
-
-
-
-
-
 
             // end of document.ready function //
 
