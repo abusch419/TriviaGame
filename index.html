@@ -30,12 +30,14 @@
             </span>
         </h2>
 
+        
+
         <h2 id="question">
             <!-- quesiton will go here  -->
             <!-- The message for if you won or lost the game will go here also -->
         </h2>
 
-        <div id="questions-answers">
+        <div id="answers">
 
 
             <!-- we will populate this question and answer button when we push start -->
@@ -73,7 +75,7 @@
                         c: "Rock and roll guy3",
                         d: "Rock and roll guy4"
                     },
-                    correctAnswer: "c"
+                    correctAnswer: "a"
                 },
                 {
                     question: "What is the answer?",
@@ -83,7 +85,7 @@
                         c: "Rock and roll thing3",
                         d: "Rock and roll thing4"
                     },
-                    correctAnswer: "c"
+                    correctAnswer: "a"
                 },
                 {
                     question: "Where is the answer?",
@@ -93,70 +95,84 @@
                         c: "Rock and roll place3",
                         d: "Rock and roll place4"
                     },
-                    correctAnswer: "d"
+                    correctAnswer: "a"
                 }
             ];
 
             // define global variables to be incremented and decremented 
 
             // game operation variables
-            var questionsAsked = 0;
+
             var number = 6;
             var intervalId;
             var i = 0;
-    
+
 
             // score keeper variables
             var unanswered = 0;
             var correctAnswerCount = 0;
             var incorrectAnswerCount = 0;
-            
 
 
 
 
-            
 
 
-                // start game button click handler
+
+
+            // start game button click handler
             $("#start-button").on("click", function () {
 
                 run();
+                $("#start-button").hide();
 
             })
 
             // TIMETELLER FUNCTIONS
 
             function run() {
-               
+
+
+
                 console.log("Running! I = " + i)
+
+
                 clearInterval(intervalId);
                 intervalId = setInterval(decrement, 1000);
-            
-                if (questionsAsked === 3) {
+
+                if (i === 3) {
                     $("#questions-answers").empty();
                     endGame();
-                    
+
 
                 }
-                if (questionsAsked < 3) {
-                    
+                if (i < 3) {
+
                     displayQuestionAndAnswers(i);
+
+
+
+
+
                 }
 
 
             }
 
             function decrement() {
+
                 number--;
 
 
 
 
                 if (number < 0) {
+
                     stop();
                     i++;
-                    questionsAsked++;
+
+
+
                     run();
 
                 }
@@ -167,10 +183,12 @@
 
             // create a function to stop the timer and set it to zero 
             function stop() {
+                console.log("stop!")
                 clearInterval(intervalId);
 
                 number = 6;
                 unanswered++;
+
 
                 // run();
 
@@ -181,66 +199,80 @@
             // create a function to display question and answer buttons to DOM 
             function displayQuestionAndAnswers(qId) {
 
+                console.log(i);
 
 
-                $("#questions-answers").empty();
-                $("#start-button").empty();
-                let questionDisplay = $("#start-button").html(`<h2>${myQuestions[qId].question}</h2>`);
+
+
+
+
+                $("#answers").empty();
+                $("#questions").empty();
+                // $("#start-button").empty();
+                // MUST CREATE EMPTY DIV FOR NEW Q DISPLAY - NOT START BUTTON 
+                let questionDisplay = $("#question").html(`<h2>${myQuestions[qId].question}</h2>`);
                 let answerOne = $(`<button>${myQuestions[qId].answers.a}</button>`).addClass("answer-button").attr("data-name", "a");
                 let answerTwo = $(`<button>${myQuestions[qId].answers.b}</button>`).addClass("answer-button").attr("data-name", "b");
                 let answerThree = $(`<button>${myQuestions[qId].answers.c}</button>`).addClass("answer-button").attr("data-name", "c");
                 let answerFour = $(`<button>${myQuestions[qId].answers.d}</button>`).addClass("answer-button").attr("data-name", "d");
-                $("#questions-answers").append(answerOne, answerTwo, answerThree, answerFour)
+                $("#answers").append(answerOne, answerTwo, answerThree, answerFour)
 
 
 
-                $(document).on("click", ".answer-button", function () {
-                            
-                    if ($(this).attr("data-name") === myQuestions[i].correctAnswer) {
-                        i++;
-                        questionsAsked++;
-                        correctAnswerCount++;
 
-
-                        number = 6;
-                        
-                        console.log(i)
-
-                        run();
-                    }
-                    else if ($(this).attr("data-name") !== myQuestions[i].correctAnswer) {
-                        i++;
-                        questionsAsked++;
-                        incorrectAnswerCount++;
-
-
-                        number = 6;
-                        
-                        console.log(i)
-
-                        run();
-                    }
-
-                })
 
             }
 
+            $(document).on("click", ".answer-button", function () {
+
+
+
+
+
+                if ($(this).attr("data-name") === myQuestions[i].correctAnswer) {
+
+                    correctAnswerCount++;
+
+
+
+                    number = 6;
+
+                    console.log(myQuestions[i])
+                    stop();
+                    i++;
+                    run();
+
+
+                }
+                else if ($(this).attr("data-name") !== myQuestions[i].correctAnswer) {
+
+                    incorrectAnswerCount++;
+
+
+
+                    number = 6;
+
+                    console.log(i)
+
+                    stop();
+                    i++;
+                    run();
+                }
 
 
 
 
 
 
-            function initializeGame() {
-                $("#start-button").empty();
-                $("#questions-answers").empty();
-                $("#correct-answer-message").empty();
-                i = 0;
-                questionsAsked = 0;
-                incorrectAnswerCount = 0;
-                correctAnswerCount = 0;
-                unanswered = 0;
-            }
+
+            })
+
+
+
+
+
+
+
 
 
             function endGame() {
@@ -253,25 +285,38 @@
                 i = 0;
 
 
-                $("#start-button").empty();
-                $("#correct-answer-message").html("<h1>YOU LOSE!</h1>")
+                $("#start-button").hide();
+                $("#answers").hide();
+                $("#question").hide();
+                $("#correct-answer-message").html("<h1>Game Over!</h1>")
                 $("#correct-answer-message").append(`<p>Incorrect Answers: ${incorrectAnswerCount}</p>`)
                 $("#correct-answer-message").append(`<p>Correct Answers: ${correctAnswerCount}</p>`)
                 $("#correct-answer-message").append(`<p>Unanswered Questions: ${unanswered}</p>`)
                 $("#correct-answer-message").append("<button>Play Again?</button>").addClass("play-again")
 
 
-                // this is not being heard??????
+                // click listener to restart the game 
                 $(".play-again").on("click", function () {
-                    initializeGame();
-                    console.log("playagain");
+                    $("#correct-answer-message").empty();
+                    $("#answers").show();
+                    $("#question").show();
+                    i = 0;
+                    correctAnswerCount = 0;
+                    incorrectAnswerCount = 0;
+                    unanswered = 0;
+                    number = 6;
+
                     run();
+
 
                 })
 
 
 
             }
+
+
+
 
 
 
