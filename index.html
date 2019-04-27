@@ -98,21 +98,27 @@
             ];
 
             // define global variables to be incremented and decremented 
+
+            // game operation variables
             var questionsAsked = 0;
             var number = 6;
+            var intervalId;
+            var i = 0;
+    
+
+            // score keeper variables
             var unanswered = 0;
             var correctAnswerCount = 0;
             var incorrectAnswerCount = 0;
-            var intervalId;
-            var i = 0;
+            
 
 
 
 
-            // create a function that will countdown (run and decrement take care of this)
+            
 
 
-
+                // start game button click handler
             $("#start-button").on("click", function () {
 
                 run();
@@ -126,12 +132,15 @@
                 console.log("Running! I = " + i)
                 clearInterval(intervalId);
                 intervalId = setInterval(decrement, 1000);
+            
                 if (questionsAsked === 3) {
                     $("#questions-answers").empty();
                     endGame();
+                    
 
                 }
-                else {
+                if (questionsAsked < 3) {
+                    
                     displayQuestionAndAnswers(i);
                 }
 
@@ -175,12 +184,13 @@
 
 
                 $("#questions-answers").empty();
+                $("#start-button").empty();
                 let questionDisplay = $("#start-button").html(`<h2>${myQuestions[qId].question}</h2>`);
                 let answerOne = $(`<button>${myQuestions[qId].answers.a}</button>`).addClass("answer-button").attr("data-name", "a");
                 let answerTwo = $(`<button>${myQuestions[qId].answers.b}</button>`).addClass("answer-button").attr("data-name", "b");
                 let answerThree = $(`<button>${myQuestions[qId].answers.c}</button>`).addClass("answer-button").attr("data-name", "c");
                 let answerFour = $(`<button>${myQuestions[qId].answers.d}</button>`).addClass("answer-button").attr("data-name", "d");
-                $("#questions-answers").append(questionDisplay, answerOne, answerTwo, answerThree, answerFour)
+                $("#questions-answers").append(answerOne, answerTwo, answerThree, answerFour)
 
 
 
@@ -222,6 +232,7 @@
 
 
             function initializeGame() {
+                $("#start-button").empty();
                 $("#questions-answers").empty();
                 $("#correct-answer-message").empty();
                 i = 0;
@@ -242,7 +253,7 @@
                 i = 0;
 
 
-
+                $("#start-button").empty();
                 $("#correct-answer-message").html("<h1>YOU LOSE!</h1>")
                 $("#correct-answer-message").append(`<p>Incorrect Answers: ${incorrectAnswerCount}</p>`)
                 $("#correct-answer-message").append(`<p>Correct Answers: ${correctAnswerCount}</p>`)
