@@ -89,7 +89,7 @@ $(document).ready(function () {
 
   // game operation variables
 
-  var number = 6;
+  var number = 15;
   var intervalId;
   var i = 0;
 
@@ -98,6 +98,7 @@ $(document).ready(function () {
   var unanswered = 0;
   var correctAnswerCount = 0;
   var incorrectAnswerCount = 0;
+  var audio = new Audio("/Users/alexandereversbusch1/bootcamp/TriviaGame/assets/images/day25_uenw4a2_mybrotheresau.mp3");
 
 
 
@@ -108,7 +109,7 @@ $(document).ready(function () {
 
   // start game button click handler
   $("#start-button").on("click", function () {
-
+    audio.play();
     run();
     $("#start-button").hide();
 
@@ -173,7 +174,7 @@ $(document).ready(function () {
     console.log("stop!")
     clearInterval(intervalId);
 
-    number = 6;
+    number = 15;
 
 
 
@@ -223,7 +224,7 @@ $(document).ready(function () {
 
 
 
-      number = 6;
+      number = 15;
 
       console.log(myQuestions[i])
       stop();
@@ -238,7 +239,7 @@ $(document).ready(function () {
 
 
 
-      number = 6;
+      number = 15;
 
       console.log(i)
 
@@ -269,7 +270,7 @@ $(document).ready(function () {
     clearInterval(intervalId);
 
 
-    number = 5;
+    number = 15;
     i = 0;
 
 
@@ -292,7 +293,7 @@ $(document).ready(function () {
       correctAnswerCount = 0;
       incorrectAnswerCount = 0;
       unanswered = 0;
-      number = 6;
+      number = 15;
 
       run();
 
