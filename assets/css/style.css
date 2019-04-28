@@ -50,10 +50,7 @@ body {
     max-width: fit-content;
 }
 
-.answer-button:hover {
-    background-color: lightblue;
-    cursor: pointer;
-}
+
 
 #answers {
     justify-content: center;
