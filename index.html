@@ -8,6 +8,10 @@
     <title>Document</title>
     <!-- link jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/javascript/app.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -15,323 +19,48 @@
     <!-- we will need a h2 with a #display-number ID to show the countdown -->
 
     <div class="main-container">
-        <h1 class="title">
-            Rock and Roll Trivia!
+        <h1 class="title row">
+           Grateful Dead Trivia!
         </h1>
 
-        <button id="start-button">
-            LETS PLAY!
-        </button>
+        <img id="start-button" src="assets/images/l108on95e4401.png" alt="stealy button">
+        
+        <!-- <button class="row"  id="start-button">
+            GET BACK TRUCKIN' ON!
+        </button> -->
 
-        <h2 id="time-remainging">
+        <p class="row" id="time-remaining">
             Time Remaining:
             <span id="time">
                 <!-- This will hold the countdown -->
             </span>
-        </h2>
+        </p>
 
-        
 
-        <h2 id="question">
+
+        <h2 class ="row" id="question">
             <!-- quesiton will go here  -->
             <!-- The message for if you won or lost the game will go here also -->
         </h2>
 
-        <div id="answers">
+        <div class="row" id="answers">
 
 
             <!-- we will populate this question and answer button when we push start -->
 
 
         </div>
-        <p id="correct-answer-message">
+        <div id="correct-answer-message">
             <!-- we will display the correct answer message here if the user guessed correctly -->
-        </p>
+        </div>
 
         <!-- we could display a gif here for every win or loss if we want -->
         <img src="" alt="">
 
 
-
-
-
-
-
-
-
     </div>
 
-    <script type="text/javascript">
 
-        $(document).ready(function () {
-
-            // define my questions object 
-            var myQuestions = [
-                {
-                    question: "Who is the answer?",
-                    answers: {
-                        a: "Rock and roll guy1",
-                        b: "Rock and roll guy2",
-                        c: "Rock and roll guy3",
-                        d: "Rock and roll guy4"
-                    },
-                    correctAnswer: "a"
-                },
-                {
-                    question: "What is the answer?",
-                    answers: {
-                        a: "Rock and roll thing1",
-                        b: "Rock and roll thing2",
-                        c: "Rock and roll thing3",
-                        d: "Rock and roll thing4"
-                    },
-                    correctAnswer: "a"
-                },
-                {
-                    question: "Where is the answer?",
-                    answers: {
-                        a: "Rock and roll place1",
-                        b: "Rock and roll place2",
-                        c: "Rock and roll place3",
-                        d: "Rock and roll place4"
-                    },
-                    correctAnswer: "a"
-                }
-            ];
-
-            // define global variables to be incremented and decremented 
-
-            // game operation variables
-
-            var number = 6;
-            var intervalId;
-            var i = 0;
-
-
-            // score keeper variables
-            var unanswered = 0;
-            var correctAnswerCount = 0;
-            var incorrectAnswerCount = 0;
-
-
-
-
-
-
-
-
-            // start game button click handler
-            $("#start-button").on("click", function () {
-
-                run();
-                $("#start-button").hide();
-
-            })
-
-            // TIMETELLER FUNCTIONS
-
-            function run() {
-
-
-
-                console.log("Running! I = " + i)
-
-
-                clearInterval(intervalId);
-                intervalId = setInterval(decrement, 1000);
-
-                if (i === 3) {
-                    $("#questions-answers").empty();
-                    endGame();
-
-
-                }
-                if (i < 3) {
-
-                    displayQuestionAndAnswers(i);
-
-
-
-
-
-                }
-
-
-            }
-
-            function decrement() {
-
-                number--;
-
-
-
-
-                if (number < 0) {
-
-                    stop();
-                    i++;
-                    unanswered++;
-
-
-
-                    run();
-
-                }
-
-                $("#time").text(number);
-
-            };
-
-            // create a function to stop the timer and set it to zero 
-            function stop() {
-                console.log("stop!")
-                clearInterval(intervalId);
-
-                number = 6;
-                
-
-
-                // run();
-
-            }
-
-
-
-            // create a function to display question and answer buttons to DOM 
-            function displayQuestionAndAnswers(qId) {
-
-                console.log(i);
-
-
-
-
-
-
-                $("#answers").empty();
-                $("#questions").empty();
-                // $("#start-button").empty();
-                // MUST CREATE EMPTY DIV FOR NEW Q DISPLAY - NOT START BUTTON 
-                let questionDisplay = $("#question").html(`<h2>${myQuestions[qId].question}</h2>`);
-                let answerOne = $(`<button>${myQuestions[qId].answers.a}</button>`).addClass("answer-button").attr("data-name", "a");
-                let answerTwo = $(`<button>${myQuestions[qId].answers.b}</button>`).addClass("answer-button").attr("data-name", "b");
-                let answerThree = $(`<button>${myQuestions[qId].answers.c}</button>`).addClass("answer-button").attr("data-name", "c");
-                let answerFour = $(`<button>${myQuestions[qId].answers.d}</button>`).addClass("answer-button").attr("data-name", "d");
-                $("#answers").append(answerOne, answerTwo, answerThree, answerFour)
-
-
-
-
-
-            }
-
-            $(document).on("click", ".answer-button", function () {
-
-
-
-
-
-                if ($(this).attr("data-name") === myQuestions[i].correctAnswer) {
-
-                    correctAnswerCount++;
-
-
-
-                    number = 6;
-
-                    console.log(myQuestions[i])
-                    stop();
-                    i++;
-                    run();
-
-
-                }
-                else if ($(this).attr("data-name") !== myQuestions[i].correctAnswer) {
-
-                    incorrectAnswerCount++;
-
-
-
-                    number = 6;
-
-                    console.log(i)
-
-                    stop();
-                    i++;
-                    run();
-                }
-
-
-
-
-
-
-
-            })
-
-
-
-
-
-
-
-
-
-            function endGame() {
-                console.log("endgame");
-
-                clearInterval(intervalId);
-
-
-                number = 5;
-                i = 0;
-
-
-                $("#start-button").hide();
-                $("#answers").hide();
-                $("#question").hide();
-                $("#correct-answer-message").html("<h1>Game Over!</h1>")
-                $("#correct-answer-message").append(`<p>Incorrect Answers: ${incorrectAnswerCount}</p>`)
-                $("#correct-answer-message").append(`<p>Correct Answers: ${correctAnswerCount}</p>`)
-                $("#correct-answer-message").append(`<p>Unanswered Questions: ${unanswered}</p>`)
-                $("#correct-answer-message").append("<button>Play Again?</button>").addClass("play-again")
-
-
-                // click listener to restart the game 
-                $(".play-again").on("click", function () {
-                    $("#correct-answer-message").empty();
-                    $("#answers").show();
-                    $("#question").show();
-                    i = 0;
-                    correctAnswerCount = 0;
-                    incorrectAnswerCount = 0;
-                    unanswered = 0;
-                    number = 6;
-
-                    run();
-
-
-                })
-
-
-
-            }
-
-
-
-
-
-
-
-            // end of document.ready function //
-
-        })
-
-
-
-
-
-
-    </script>
 
 </body>
 

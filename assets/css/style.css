@@ -1,1 +1,70 @@
 /* css style in this file  */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: url("/Users/alexandereversbusch1/bootcamp/TriviaGame/assets/images/dead3.jpg");
+    background-size: 100%;
+}
+
+.main-container {
+    background: rgba(215, 218, 224, 0.8);
+    max-width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 30px 30px 30px 30px;
+}
+
+.title {
+    justify-content: center;
+    margin-top: 100px;
+}
+
+#start-button {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+#start-button:hover {
+    background-color: lightblue;
+    border-radius: 10px 10px 10px 10px;
+}
+
+#time-remaining {
+    justify-content: center;
+}
+
+#question {
+    justify-content: center;
+    max-width: 80%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+.answer-button {
+    max-width: fit-content;
+}
+
+.answer-button:hover {
+    background-color: lightblue;
+}
+
+#answers {
+    justify-content: center;
+    max-width: 80%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#correct-answer-message {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 50%;
+}
