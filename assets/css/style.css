@@ -15,12 +15,15 @@ body {
     margin-left: auto;
     margin-right: auto;
     border-radius: 30px 30px 30px 30px;
+    
 }
 
 .title {
     justify-content: center;
     text-align: center;
     margin-top: 100px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 #start-button {
