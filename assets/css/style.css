@@ -28,6 +28,7 @@ body {
     margin-right: auto;
     display: block;
 }
+
 #start-button:hover {
     background-color: lightblue;
     border-radius: 10px 10px 10px 10px;
@@ -44,8 +45,6 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
-
-
 
 .answer-button {
     max-width: fit-content;
@@ -73,8 +72,9 @@ body {
 .nav-container {
     position: fixed;
     width: 100%;
-
 }
+
+
 
 .nav-div {
     max-width: 100%;
@@ -88,5 +88,5 @@ body {
     padding-left: 15px;
     padding-right: 15px;
     box-sizing: unset;
-    
+    flex: unset;
 }
