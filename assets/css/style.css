@@ -52,6 +52,7 @@ body {
 
 .answer-button:hover {
     background-color: lightblue;
+    cursor: pointer;
 }
 
 #answers {
