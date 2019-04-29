@@ -98,7 +98,7 @@ $(document).ready(function () {
   var unanswered = 0;
   var correctAnswerCount = 0;
   var incorrectAnswerCount = 0;
-  var audio = new Audio("https://abusch419.github.io/TriviaGame/assets/images/day25_uenw4a2_mybrotheresau.mp3");
+  var audio = new Audio("assets/sound/day25_uenw4a2_mybrotheresau.mp3");
 
  
 
