@@ -100,7 +100,7 @@ $(document).ready(function () {
   var incorrectAnswerCount = 0;
   var audio = new Audio("assets/sound/day25_uenw4a2_mybrotheresau.mp3");
 
- 
+
 
 
 
@@ -118,51 +118,29 @@ $(document).ready(function () {
   // TIMETELLER FUNCTIONS
 
   function run() {
-
-
-
     console.log("Running! I = " + i)
-
-
     clearInterval(intervalId);
     intervalId = setInterval(decrement, 1000);
 
     if (i === myQuestions.length) {
       $("#questions-answers").empty();
       endGame();
-
-
     }
     if (i < myQuestions.length) {
-
       displayQuestionAndAnswers(i);
-
-
-
-
-
     }
-
-
   }
+
 
   function decrement() {
 
     number--;
 
-
-
-
     if (number < 0) {
-
       stop();
       i++;
       unanswered++;
-
-
-
       run();
-
     }
 
     $("#time").text(number);
@@ -205,30 +183,23 @@ $(document).ready(function () {
     let answerFour = $(`<button>${myQuestions[qId].answers.d}</button>`).addClass("answer-button col-12").attr("data-name", "d");
     $("#answers").append(answerOne, answerTwo, answerThree, answerFour)
 
-
-
-
-
   }
 
 
   $(document).on("click", ".answer-button", function () {
 
-
-
-
-
     if ($(this).attr("data-name") === myQuestions[i].correctAnswer) {
 
       correctAnswerCount++;
-
-
-
       number = 15;
 
       console.log(myQuestions[i])
       stop();
       i++;
+
+
+      // I could put run on a set timeout 
+
       run();
 
 
@@ -245,6 +216,10 @@ $(document).ready(function () {
 
       stop();
       i++;
+
+      // I could put run on a set timeout 
+
+      
       run();
     }
 
