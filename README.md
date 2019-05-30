@@ -26,9 +26,9 @@ V1.0
 
 ## Screenshots
 ## Start Page
-![](./assets/images/start.jpg)
+![](./assets/images/start.png)
 ## Game Play
-![](./assets/images/game.jpg)
+![](./assets/images/game.png)
 ## Score Page
-![](./assets/images/score.jpg)
+![](./assets/images/score.png)
 
