@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Grateful Dead Trivia</title>
+    <link rel="shortcut icon" href="assets/images/stealyfavicon.png" type="image/x-icon">
+    <!-- link jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/javascript/app.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- we will need a h2 with a #display-number ID to show the countdown -->
+
+    <div class="main-container">
+        <h3 class="title row">
+            Grateful Dead Song Lyrics Trivia!
+        </h3>
+
+        <img id="start-button" src="assets/images/l108on95e4401.png" alt="stealy button">
+
+        <!-- <button class="row"  id="start-button">
+            GET BACK TRUCKIN' ON!
+        </button> -->
+
+        <p class="row" id="time-remaining">
+            Time Remaining:
+            <span id="time">
+                <!-- This will hold the countdown -->
+            </span>
+        </p>
+
+
+
+        <h2 class="row" id="question">
+            <!-- quesiton will go here  -->
+            <!-- The message for if you won or lost the game will go here also -->
+        </h2>
+
+        <div class="row" id="answers">
+
+
+            <!-- we will populate this question and answer button when we push start -->
+
+
+        </div>
+        <div id="correct-answer-message">
+            <!-- we will display the correct answer message here if the user guessed correctly -->
+        </div>
+
+        <!-- we could display a gif here for every win or loss if we want -->
+        <img src="" alt="">
+
+
+    </div>
+
+  
+
+    <nav class="navbar fixed-bottom navbar-light bg-light">
+        <div class="nav-div">
+            <span>
+                <a href="https://www.facebook.com/alex.eversbusch"><img id="social-media-icon" src="assets/images/fb.png" alt="facebook"></a>
+            </span>
+            <span>
+                <a href="https://github.com/abusch419"><img id="social-media-icon" src="assets/images/github.png" alt="github"></a>
+            </span>
+            <span>
+                <a href="https://www.instagram.com/localmotiveathens/"><img id="social-media-icon" src="assets/images/insta.png" alt="insta"></a>
+            </span>
+            <span>
+                <a href="https://www.linkedin.com/in/alex-eversbusch-59834b25/"><img id="social-media-icon" src="assets/images/linkedin.png"
+                        alt="linkedin"></a>
+            </span>
+            <span>
+                <a href="https://soundcloud.com/localmotiveathens"><img id="social-media-icon" src="assets/images/soundcloud.png"
+                        alt="soundcloud"></a>
+            </span>
+        </div>
+
+    </nav>
+
+</body>
+
+</html>
